@@ -1,0 +1,56 @@
+.login-panel {
+    width: 300px;
+    padding-top: 6px;
+    padding-bottom: 24px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.14);
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    -ms-transform: translate(50%, -50%);
+    transform: translate(50%, -50%);
+}
+
+.login-label {
+    display: block;
+    margin-left: 24px;
+    font-size: 13px;
+    color: #333333;
+    font-family: Roboto, sans-serif;
+    margin-bottom: 8px;
+    margin-top: 18px;
+}
+
+.ui.form input[type=text].login-field, .ui.form input[type=password].login-field {
+    display: block;
+    width: 252px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: #ffffff;
+    box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.08);
+    border: solid 1px #dddddd;
+    font-family: Roboto, sans-serif;
+    font-size: 13px;
+    padding-left: 6px;
+    margin-left: 24px;
+}
+
+.ui.button.login-button {
+    display: block;
+    width: 252px;
+    height: 40px;
+    border-radius: 2px;
+    border-style: none;
+    margin: 24px 0 0 24px;
+}
+
+.login-error {
+    display: block;
+    margin-left: 24px;
+    font-size: 13px;
+    color: #a94442;
+    font-family: Roboto, sans-serif;
+    margin-bottom: 8px;
+    margin-top: 18px;
+}
