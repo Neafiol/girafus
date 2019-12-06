@@ -1,4 +1,4 @@
-import {put, select, takeEvery} from 'redux-saga/effects';
+import {put, select, call, takeEvery} from 'redux-saga/effects';
 import {ROOT_ROUTE, LOGIN} from "../constants/routes";
 
 function* doLogin() {
@@ -7,11 +7,14 @@ function* doLogin() {
         let login = yield select(state => state.login.login);
         let password = yield select(state => state.login.password);
 
-        fetch(`${ROOT_ROUTE}${LOGIN}?login=${login}&password=${password}`)
-            .then(response => response.json())
-            .then(response => {
-                console.log(JSON.stringify(response));
-            });
+        let response = yield fetch(`${ROOT_ROUTE}${LOGIN}?login=${login}&password=${password}`)
+            .then(response => response.json());
+
+        if (response.status) {
+            yield put({type: 'LOGIN_SUCCESS', isAdmin: response.user.admin});
+        } else {
+            yield put({type: 'LOGIN_ERROR', errorMessage: 'Пользователь не найден или неверный пароль'});
+        }
     } catch (error) {
 
     } finally {

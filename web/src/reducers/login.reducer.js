@@ -8,7 +8,13 @@ export default function reducer(state = {}, action) {
         case 'LOGIN_ERROR':
             return {
                 ...state,
-                errorMessage: action.value,
+                errorMessage: action.errorMessage,
+            };
+        case 'LOGIN_SUCCESS':
+            return {
+                ...state,
+                isAuthenticated: true,
+                isAdmin: action.isAdmin,
             };
         default:
             return state;

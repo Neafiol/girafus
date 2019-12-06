@@ -12,7 +12,6 @@ import './css/login.css';
 import 'semantic-ui-css/semantic.min.css';
 
 import App from './App';
-import Login from './Login';
 import * as serviceWorker from './serviceWorker';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -21,7 +20,7 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
     <Provider store={store}>
-        <Login />
+        <App />
     </Provider>
     , document.getElementById('root')
 );
