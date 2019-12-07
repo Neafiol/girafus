@@ -1,10 +1,8 @@
 import React from 'react';
-
 import {Button, Grid, Input, Segment, Table} from 'semantic-ui-react'
-import "../css/RulesTable.css"
 
 
-export default class UserTable extends React.Component {
+export default class RulesTable extends React.Component {
     constructor(props) {
         super(props);
         const rows = [
@@ -112,8 +110,8 @@ export default class UserTable extends React.Component {
             this.val_id = val.id;
 
             rows.push(
-                <Table.Row>
-                    <Table.Cell width={8}>
+                <Table.Row key={`row_${val.id}`}>
+                    <Table.Cell key={`cell_${val.id}`} width={8}>
                         {val.name}
                     </Table.Cell>
                     {
@@ -138,7 +136,7 @@ export default class UserTable extends React.Component {
                                 val = 2;
                             }
                             return (
-                                <Table.Cell width={2} textAlign={'center'}>
+                                <Table.Cell key={`cell_${val.id}_${i}`} width={2} textAlign={'center'}>
                                     <Button onClick={() => this.update(val_id, i, val)} circular color={color}
                                             icon={name}/>
                                 </Table.Cell>)
@@ -160,7 +158,7 @@ export default class UserTable extends React.Component {
         for (var t in tables) {
             var table = tables[t];
             tabls.push(
-                <Table singleLine attached>
+                <Table key={`table_${t}`} singleLine attached>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell width={4}>{t}</Table.HeaderCell>

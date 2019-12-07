@@ -2,10 +2,17 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { Dropdown, Menu, Tab, Label } from 'semantic-ui-react';
+import UsersList from '../components/users_list';
 
 const mapStateToProps = state => ({
     logged: state.login.logged,
 });
+
+const users = [
+    { id: 37, name: 'Иванов Иван Иванович', position: 'Директор' },
+    { id: 73, name: 'Петров Пётр Петрович', position: 'Главный бухгалтер' },
+    { id: 111, name: 'Сидоров Сидор Сидорович', position: 'Операционист' },
+];
 
 class Admin extends React.Component {
     handleLogout = () => {
@@ -19,10 +26,18 @@ class Admin extends React.Component {
 
         const firms = ['ОАО "Газпром"', 'ООО "Рога и копыта"', 'ООО "Рожки и копытца"',];
 
+        let FirmPaneTab = <Tab
+            menu={{ secondary: true, pointing: true }}
+            panes={[
+                { menuItem: 'Пользователи', render: () => <Tab.Pane><UsersList users={users} /></Tab.Pane>},
+                { menuItem: 'Продукты', render: () => <Tab.Pane>Список продуктов</Tab.Pane>}
+            ]}
+        />;
+
         let FirmTab = <Tab
             menu={{ fluid: true, vertical: true }}
             panes={firms.map(firm => {
-                return {menuItem: firm, render: () => <Tab.Pane>{`Список пользователей ${firm}`}</Tab.Pane>}
+                return {menuItem: firm, render: () => <Tab.Pane>{FirmPaneTab}</Tab.Pane>}
             })}
         />;
 
