@@ -7,7 +7,7 @@ const mapStateToProps = state => ({
     login: state.login.login,
     password: state.login.password,
     errorMessage: state.login.errorMessage,
-    isAuthenticated: state.login.isAuthenticated,
+    logged: state.login.logged,
     isAdmin: state.login.isAdmin,
 });
 
@@ -28,7 +28,7 @@ class Login extends React.Component {
         this.props.dispatch({type: 'DO_LOGIN'});
 
     render() {
-        if (this.props.isAuthenticated) {
+        if (this.props.logged) {
             if (this.props.isAdmin) {
                 return <Redirect to='/admin'/>;
             }
