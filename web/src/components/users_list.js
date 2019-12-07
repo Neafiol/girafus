@@ -17,8 +17,8 @@ class UsersList extends React.Component {
         });
     };
 
-    showRules = userId => this.state.selectedUser === userId;
-
+    showRules = userId =>
+        this.state.selectedUser === userId;
 
     render() {
         return (
