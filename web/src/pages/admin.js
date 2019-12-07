@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { Dropdown, Menu, Tab, Label, Dimmer, Loader } from 'semantic-ui-react';
 import CompaniesList from '../components/companies_list';
+import Requests from "../components/Requests";
 
 const mapStateToProps = state => ({
     logged: state.login.logged,
@@ -56,9 +57,9 @@ class Admin extends React.Component {
             { menuItem: (
                 <Menu.Item key='requests'>
                     Запросы
-                    <Label>37</Label>
+                    <Label>5</Label>
                 </Menu.Item>),
-                render: () => <Tab.Pane>Тут будет список запросов от дочерних компаний</Tab.Pane>
+                render: () => <Tab.Pane><Requests/></Tab.Pane>
             },
         ];
 

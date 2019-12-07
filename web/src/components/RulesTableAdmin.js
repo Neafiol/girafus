@@ -1,11 +1,13 @@
 import React from 'react';
+
 import {Button, Grid, Input, Segment, Table} from 'semantic-ui-react'
+import "../css/RulesTable.css"
 
 
-export default class RulesTable extends React.Component {
+export default class UserTable extends React.Component {
     constructor(props) {
         super(props);
-        var rows =  props.rows||[];
+        var rows = props.rows|| [];
         var tables = {};
         for (var r in rows) {
             if (tables[rows[r].type] === undefined) {
@@ -14,12 +16,11 @@ export default class RulesTable extends React.Component {
             tables[rows[r].type].push(rows[r]);
         }
         this.state = {
+            user_id: props.user_id||1,
             rows: rows,
-            tables: tables,
+            tables: props.tables||tables,
             btnName: props.btnName||"Сохранить изменения",
         };
-        console.log("tables",tables);
-        console.log("var",rows);
         this.rows_for_update = {};
         this.save = props.save;
     }
@@ -48,7 +49,7 @@ export default class RulesTable extends React.Component {
         var tables = {};
         for (var r in this.state.rows) {
             var row = this.state.rows[r];
-            if (row.id === id) {
+            if (row.id == id) {
                 row.permissions[column] = value;
                 this.rows_for_update[row.id] = row.permissions;
             }
@@ -67,8 +68,8 @@ export default class RulesTable extends React.Component {
             this.val_id = val.id;
 
             rows.push(
-                <Table.Row key={`row_${val.id}`}>
-                    <Table.Cell key={`cell_${val.id}`} width={8}>
+                <Table.Row>
+                    <Table.Cell width={8}>
                         {val.name}
                     </Table.Cell>
                     {
@@ -76,24 +77,29 @@ export default class RulesTable extends React.Component {
                             var val_id = this.val_id;
                             var name = "x";
                             var color = "grey";
-                            var val = 2;
-                            if (perm === 1) {
-                                name = 'chevron down';
-                                color = 'green';
-                                val = 0;
-                            }
-                            if (perm === 2) {
+                            var val = 1;
+                            if (perm == 2) {
                                 name = 'chevron down';
                                 color = 'orange';
-                                val = 0;
+                                val = 1;
                             }
-                            if (perm === 3) {
+                            if (perm == 1) {
+                                name = 'chevron down';
+                                color = 'green';
+                                val = 3;
+                            }
+                            if (perm == 3) {
                                 name = 'x';
                                 color = 'red';
-                                val = 2;
+                                val = 1;
+                            }
+                            if (perm == 0) {
+                                name = 'chevron down';
+                                color = 'grey';
+                                val = 0;
                             }
                             return (
-                                <Table.Cell key={`cell_${val.id}_${i}`} width={2} textAlign={'center'}>
+                                <Table.Cell width={2} textAlign={'center'}>
                                     <Button onClick={() => this.update(val_id, i, val)} circular color={color}
                                             icon={name}/>
                                 </Table.Cell>)
@@ -109,13 +115,13 @@ export default class RulesTable extends React.Component {
     getTables = (tables) => {
         let tabls = [];
         console.log(tables);
-        if (Object.keys(tables).length === 0) {
+        if (Object.keys(tables).length == 0) {
             return <h1>Not found</h1>
         }
         for (var t in tables) {
             var table = tables[t];
             tabls.push(
-                <Table key={`table_${t}`} singleLine attached>
+                <Table singleLine attached>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell width={4}>{t}</Table.HeaderCell>
@@ -151,8 +157,8 @@ export default class RulesTable extends React.Component {
                                    placeholder='Search...'/>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                            <Button positive={Object.keys(this.rows_for_update).length > 0} disabled={Object.keys(this.rows_for_update).length === 0}
-                                    onClick={()=>this.save(this.rows_for_update)} fluid>{this.state.btnName}</Button>
+                            <Button positive
+                                    onClick={()=>this.save(this.state.rows,this.state.user_id)} fluid>{this.state.btnName}</Button>
                         </Grid.Column>
                     </Grid>
                 </Segment>
