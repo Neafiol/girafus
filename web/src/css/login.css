@@ -54,3 +54,8 @@
     margin-bottom: 8px;
     margin-top: 18px;
 }
+
+.login-logo {
+    display: block;
+    margin: auto;
+}
