@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { Button, Form, Dimmer, Loader } from 'semantic-ui-react';
+import logoImg from '../img/logo.png';
 
 const mapStateToProps = state => ({
     login: state.login.login,
@@ -52,6 +53,7 @@ class Login extends React.Component {
                 <Dimmer inverted active={this.props.showWait}>
                     <Loader inverted />
                 </Dimmer>
+                <img src={logoImg} className="login-logo"/>
                 <Form>
                     <Form.Field>
                         {this.props.errorMessage && <span className='login-error'>{this.props.errorMessage}</span>}
