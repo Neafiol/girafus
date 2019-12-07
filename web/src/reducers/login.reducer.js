@@ -23,6 +23,11 @@ export default function reducer(state = {}, action) {
                 isAdmin: undefined,
                 errorMessage: '',
             };
+        case 'LOGIN_IN_PROCESS':
+            return {
+                ...state,
+                showWait: action.value,
+            };
         default:
             return state;
     }
