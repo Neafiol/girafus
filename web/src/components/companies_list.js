@@ -8,7 +8,10 @@ class CompaniesList extends React.Component {
             <Tab
                 menu={{ fluid: true, vertical: true }}
                 panes={this.props.companies.map(company => {
-                    return { menuItem: company.name, render: () => <Tab.Pane><CompanyTab company={company} /></Tab.Pane>}
+                    return {
+                        menuItem: company.name,
+                        render: () => <Tab.Pane><CompanyTab company={company} getCompanyInfo={this.props.getCompanyInfo} /></Tab.Pane>
+                    }
                 })}
             />
         )
@@ -16,12 +19,31 @@ class CompaniesList extends React.Component {
 }
 
 class CompanyTab extends React.Component {
+    componentDidMount() {
+        this.initIfRequired();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.company.id !== this.props.company.id) {
+            this.initIfRequired();
+        }
+    }
+
+    initIfRequired = () => {
+        if (!this.props.company.users || !this.props.company.rules_list) {
+            this.loadData();
+        }
+    };
+
+    loadData = () =>
+        this.props.getCompanyInfo(this.props.company.id);
+
     render() {
         return(
             <Tab
                 menu={{ secondary: true, pointing: true }}
                 panes={[
-                    { menuItem: 'Пользователи', render: () => <Tab.Pane><UsersList users={this.props.company.users} /></Tab.Pane>},
+                    { menuItem: 'Пользователи', render: () => <Tab.Pane><UsersList users={this.props.company.users || []} /></Tab.Pane>},
                     { menuItem: 'Продукты', render: () => <Tab.Pane>Список продуктов</Tab.Pane>}
                 ]}
             />

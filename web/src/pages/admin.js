@@ -6,27 +6,27 @@ import CompaniesList from '../components/companies_list';
 
 const mapStateToProps = state => ({
     logged: state.login.logged,
+    user: state.login.user || {},
+    companies: state.companies,
 });
 
-const companies = [
-    { id: 3737, name: 'ОАО "Газпром"', users: [
-            { id: 37, name: 'Иванов Иван Иванович', position: 'Директор' },
-            { id: 73, name: 'Петров Пётр Петрович', position: 'Главный бухгалтер' },
-            { id: 111, name: 'Сидоров Сидор Сидорович', position: 'Операционист' },
-        ]},
-    { id: 7373, name: 'ОАО "Рога и Копыта"', users: [
-            { id: 37, name: 'Иванов Иван Иванович', position: 'Директор' },
-            { id: 73, name: 'Петров Пётр Петрович', position: 'Главный бухгалтер' },
-            { id: 111, name: 'Сидоров Сидор Сидорович', position: 'Операционист' },
-        ]},
-    { id: 111111, name: 'ОАО "Рожки и Копытца"', users: [
-            { id: 37, name: 'Иванов Иван Иванович', position: 'Директор' },
-            { id: 73, name: 'Петров Пётр Петрович', position: 'Главный бухгалтер' },
-            { id: 111, name: 'Сидоров Сидор Сидорович', position: 'Операционист' },
-        ]},
-];
-
 class Admin extends React.Component {
+    componentDidMount() {
+        this.initIfRequired();
+    }
+
+    initIfRequired = () => {
+        if (this.props.companies.length === 0) {
+            this.loadData();
+        }
+    };
+
+    loadData = () =>
+        this.props.dispatch({type: 'GET_COMPANIES', userId: this.props.user.id});
+
+    getCompanyInfo = companyId =>
+        this.props.dispatch({type: 'GET_COMPANY_INFO', companyId});
+
     handleLogout = () => {
         this.props.dispatch({type: 'LOGOUT'});
     };
@@ -37,7 +37,16 @@ class Admin extends React.Component {
         }
 
         const panes = [
-            { menuItem: 'Предприятия', render: () => <Tab.Pane><CompaniesList companies={companies} /></Tab.Pane> },
+            {
+                menuItem: 'Предприятия',
+                render: () =>
+                    <Tab.Pane>
+                        <CompaniesList
+                            companies={this.props.companies}
+                            getCompanyInfo={this.getCompanyInfo}
+                        />
+                    </Tab.Pane>
+            },
             { menuItem: 'Роли', render: () => <Tab.Pane>А тут - список ролей</Tab.Pane> },
             { menuItem: (
                 <Menu.Item key='requests'>

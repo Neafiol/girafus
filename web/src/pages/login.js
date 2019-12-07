@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
     password: state.login.password,
     errorMessage: state.login.errorMessage,
     logged: state.login.logged,
-    isAdmin: state.login.isAdmin,
+    isAdmin: (state.login.user || {}).admin,
     showWait: state.login.showWait,
 });
 

@@ -15,6 +15,7 @@ export default function reducer(state = {}, action) {
                 ...state,
                 logged: true,
                 isAdmin: action.isAdmin,
+                user: action.user,
                 errorMessage: '',
             };
         case 'LOGOUT':

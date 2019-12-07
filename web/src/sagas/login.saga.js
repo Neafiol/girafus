@@ -11,12 +11,12 @@ function* doLogin() {
             .then(response => response.json());
 
         if (response.status) {
-            yield put({type: 'LOGIN_SUCCESS', isAdmin: response.user.admin});
+            yield put({type: 'LOGIN_SUCCESS', user: response.user});
         } else {
             yield put({type: 'LOGIN_ERROR', errorMessage: 'Пользователь не найден или неверный пароль'});
         }
     } catch (error) {
-
+        console.warn(error);
     } finally {
         yield put({type: 'LOGIN_IN_PROCESS', value: false});
     }
