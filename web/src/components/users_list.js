@@ -14,6 +14,11 @@ class UsersList extends React.Component {
     handleSelectUser = userId => {
         this.setState({
             selectedUser: this.state.selectedUser === userId ? undefined : userId
+        }, () => {
+            let selectedUser = this.state.selectedUser;
+            if (selectedUser && !this.props.users[selectedUser].rules) {
+                this.props.getUserRules(selectedUser);
+            }
         });
     };
 
@@ -23,12 +28,12 @@ class UsersList extends React.Component {
     render() {
         return (
             <List selection animated verticalAlign='middle'>
-                {this.props.users.map(user =>
+                {Object.values(this.props.users).map(user =>
                         <List.Item key={`user_${user.id}`}>
                             <List.Header onClick={() => this.handleSelectUser(user.id)}>
                                 {`${user.name} - ${user.position}`}
                             </List.Header>
-                            {this.showRules(user.id) && <RulesTable />}
+                            {this.showRules(user.id) && <RulesTable rows={user.rules}/>}
                         </List.Item>
                 )}
             </List>

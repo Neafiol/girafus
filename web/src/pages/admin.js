@@ -7,7 +7,7 @@ import CompaniesList from '../components/companies_list';
 const mapStateToProps = state => ({
     logged: state.login.logged,
     user: state.login.user || {},
-    companies: state.companies,
+    companies: state.context.companies,
     showWait: state.context.showWait,
 });
 
@@ -17,7 +17,7 @@ class Admin extends React.Component {
     }
 
     initIfRequired = () => {
-        if (this.props.companies.length === 0) {
+        if (!this.props.companies) {
             this.loadData();
         }
     };
@@ -27,6 +27,9 @@ class Admin extends React.Component {
 
     getCompanyInfo = companyId =>
         this.props.dispatch({type: 'GET_COMPANY_INFO', companyId});
+
+    getUserRules = (companyId, userId) =>
+        this.props.dispatch({type: 'GET_USER_RULES', companyId, userId});
 
     handleLogout = () => {
         this.props.dispatch({type: 'LOGOUT'});
@@ -43,8 +46,9 @@ class Admin extends React.Component {
                 render: () =>
                     <Tab.Pane>
                         <CompaniesList
-                            companies={this.props.companies}
+                            companies={Object.values(this.props.companies || {})}
                             getCompanyInfo={this.getCompanyInfo}
+                            getUserRules={this.getUserRules}
                         />
                     </Tab.Pane>
             },

@@ -59,7 +59,7 @@ export default class RulesTable extends React.Component {
             tables[rows[r].type].push(rows[r]);
         }
         this.state = {
-            rows: props.raw||rows,
+            rows: props.rows||rows,
             tables: props.tables||tables,
             btnName: props.btnName||"Сохранить изменения",
         };

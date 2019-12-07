@@ -10,7 +10,13 @@ class CompaniesList extends React.Component {
                 panes={this.props.companies.map(company => {
                     return {
                         menuItem: company.name,
-                        render: () => <Tab.Pane><CompanyTab company={company} getCompanyInfo={this.props.getCompanyInfo} /></Tab.Pane>
+                        render: () => <Tab.Pane>
+                            <CompanyTab
+                                company={company}
+                                getCompanyInfo={this.props.getCompanyInfo}
+                                getUserRules={this.props.getUserRules}
+                            />
+                        </Tab.Pane>
                     }
                 })}
             />
@@ -43,7 +49,15 @@ class CompanyTab extends React.Component {
             <Tab
                 menu={{ secondary: true, pointing: true }}
                 panes={[
-                    { menuItem: 'Пользователи', render: () => <Tab.Pane><UsersList users={this.props.company.users || []} /></Tab.Pane>},
+                    {
+                        menuItem: 'Пользователи',
+                        render: () => <Tab.Pane>
+                            <UsersList
+                                users={this.props.company.users || {}}
+                                getUserRules={userId => this.props.getUserRules(this.props.company.id, userId)}
+                            />
+                        </Tab.Pane>
+                    },
                     { menuItem: 'Продукты', render: () => <Tab.Pane>Список продуктов</Tab.Pane>}
                 ]}
             />
