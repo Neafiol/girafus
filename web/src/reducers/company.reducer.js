@@ -11,6 +11,8 @@ export default function reducer(state = [], action) {
             return companies;
         case 'SET_COMPANIES':
             return action.companies || [];
+        case 'LOGOUT':
+            return [];
         default:
             return [...state];
     }

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { Dropdown, Menu, Tab, Label } from 'semantic-ui-react';
+import { Dropdown, Menu, Tab, Label, Dimmer, Loader } from 'semantic-ui-react';
 import CompaniesList from '../components/companies_list';
 
 const mapStateToProps = state => ({
     logged: state.login.logged,
     user: state.login.user || {},
     companies: state.companies,
+    showWait: state.context.showWait,
 });
 
 class Admin extends React.Component {
@@ -59,6 +60,9 @@ class Admin extends React.Component {
 
         return (
             <div>
+                <Dimmer inverted active={this.props.showWait}>
+                    <Loader inverted />
+                </Dimmer>
                 <Menu attached='top'>
                     <Menu.Menu position='right'>
                         <Dropdown item text='Админ всея холдинга'>

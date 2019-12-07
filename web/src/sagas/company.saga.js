@@ -3,7 +3,7 @@ import {ROOT_ROUTE, COMPANY} from "../constants/routes";
 
 function* getCompanies(action) {
     try {
-        yield put({type: 'ADMIN_SHOW_WAIT', value: true});
+        yield put({type: 'CONTEXT_SHOW_WAIT', value: true});
 
         // todo: when backend is ready change request for user
         // let response = yield fetch(`${ROOT_ROUTE}${COMPANY}?user_id=${action.userId}`)
@@ -14,13 +14,13 @@ function* getCompanies(action) {
     } catch (error) {
         console.warn(error);
     } finally {
-        yield put({type: 'ADMIN_SHOW_WAIT', value: false});
+        yield put({type: 'CONTEXT_SHOW_WAIT', value: false});
     }
 }
 
 function* getCompanyInfo(action) {
     try {
-        yield put({type: 'ADMIN_SHOW_WAIT', value: true});
+        yield put({type: 'CONTEXT_SHOW_WAIT', value: true});
 
         let response = yield fetch(`${ROOT_ROUTE}${COMPANY}?company_id=${action.companyId}`)
             .then(response => response.json());
@@ -29,7 +29,7 @@ function* getCompanyInfo(action) {
     } catch (error) {
         console.warn(error);
     } finally {
-        yield put({type: 'ADMIN_SHOW_WAIT', value: false});
+        yield put({type: 'CONTEXT_SHOW_WAIT', value: false});
     }
 }
 
