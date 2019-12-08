@@ -72,6 +72,19 @@ class RoleEditor extends React.Component {
             });
     };
 
+    deleteRole = (e,{value}) => {
+            var main = this;
+            console.log(value);
+            // axios.patch(ROOT_ROUTE + "user/", {
+            //     user_id: this.state.user_id,
+            //     role: this.state.new_role
+            // })
+            //     .then((resp) => {
+            //         console.log("Sucsess");
+            //         main.close();
+            //     });
+        };
+
 
     handleLogout = () => {
         this.props.dispatch({type: 'LOGOUT'});
@@ -124,12 +137,13 @@ class RoleEditor extends React.Component {
 
                 <Dropdown
                     fluid
+                    disabled
                     selection
                     multiple={true}
                     options={this.state.roles}
                     value={value}
-                    disabled
                     placeholder='Роли пользователя'
+                    onChange={this.deleteRole}
                 />
                 <Menu.Menu position='right'>
                     <Button color={"green"} onClick={this.show} style={{"margin-left": "10px"}}>Добавить</Button>
