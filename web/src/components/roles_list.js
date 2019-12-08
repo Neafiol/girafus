@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { List, Button, Icon } from 'semantic-ui-react';
+import {List, Button, Icon, Input} from 'semantic-ui-react';
 import RulesTable from "./rules_table";
 
 const mapDispatchToProps = dispatch => ({dispatch});
@@ -12,6 +12,7 @@ class RolesList extends React.Component {
         this.state = {
             showRules: false,
             roleId: undefined,
+            roleName: undefined,
             rules: [],
         }
     }
@@ -37,18 +38,36 @@ class RolesList extends React.Component {
         return result;
     };
 
-    showRoleRules = roleId => {
+    editRole = roleId => {
         let role = this.getRole(roleId);
 
         this.setState({
             showRules: !!role.rules,
             roleId,
+            roleName: role.name,
             rules: role.rules,
         });
 
         if (!role.rules) {
             this.props.dispatch({type: 'GET_ROLE_RULES', roleId});
         }
+    };
+
+    handleRoleNameChange = e => {
+        this.setState({
+            roleName: e.target.value,
+        })
+    };
+
+    saveRoleChanges = () => {
+        this.props.dispatch({type: 'UPDATE_ROLE', roleId: this.state.roleId, roleName: this.state.roleName});
+
+        this.setState({
+            showRules: false,
+            roleId: undefined,
+            roleName: undefined,
+            rules: [],
+        });
     };
 
     render() {
@@ -58,11 +77,19 @@ class RolesList extends React.Component {
                     {this.props.roles.map(role =>
                         <List.Item key={`role_item_${role.id}`} active={this.state.roleId === role.id}>
                             <List.Header>
-                                {role.name}
+                                {
+                                    this.state.roleId === role.id ?
+                                    <Input
+                                        type='text'
+                                        value={this.state.roleName}
+                                        onChange={this.handleRoleNameChange}
+                                    /> :
+                                    role.name
+                                }
                                 <Button basic
                                         icon labelPosition='left'
                                         floated='right'
-                                        onClick={() => this.showRoleRules(role.id)}
+                                        onClick={() => this.editRole(role.id)}
                                 >
                                     <Icon name='edit outline' />
                                     Изменить
@@ -71,7 +98,14 @@ class RolesList extends React.Component {
                         </List.Item>
                     )}
                 </List>
-                {this.state.showRules && <RulesTable rows={this.state.rules}/>}
+                {
+                    this.state.showRules &&
+                    <RulesTable
+                        rows={this.state.rules}
+                        initialEnabled={true}
+                        save={this.saveRoleChanges}
+                    />
+                }
             </div>
         )
     }

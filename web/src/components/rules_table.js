@@ -149,8 +149,13 @@ export default class RulesTable extends React.Component {
                                    placeholder='Search...'/>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                            <Button positive={Object.keys(this.rows_for_update).length > 0} disabled={Object.keys(this.rows_for_update).length === 0}
-                                    onClick={()=>this.save(this.rows_for_update)} fluid>{this.state.btnName}</Button>
+                            <Button positive={Object.keys(this.rows_for_update).length > 0 || this.props.initialEnabled}
+                                    disabled={Object.keys(this.rows_for_update).length === 0 && !this.props.initialEnabled}
+                                    onClick={()=>this.save(this.rows_for_update)}
+                                    fluid
+                            >
+                                {this.state.btnName}
+                            </Button>
                         </Grid.Column>
                     </Grid>
                 </Segment>
