@@ -62,7 +62,7 @@ export default class UserTable extends React.Component {
                                     <Grid.Row textAlign='center' verticalAlign={"middle"}>
                                         <Grid.Column>
                                             <Image size={"tiny"}
-                                                   src='https://uc559035b5e9d656f886f0e22052.previews.dropboxusercontent.com/p/thumb/AAr3LCuDH93GW8K_DwJ07O2e96UwQa4wos-RVlzmoe0BQ4a3Y7vwcEZrlmGXUq2bm8d-ViegmV9vbvMQUB_-vSP_lZxCqG9uqo3hCx1Mtt1JLRfXXD7vTVRWDYgHEZ1S_EteiabNAwguWIFBV9u3LidsDD2RAwZot5wRe89EtxyMLms9RUXiiohZwDIAvEwg8pa0e8861ZfGj-rSlAXkoWZ3miu5dGA3RNxju5Pv2J1LIfnlnQHJHSkwU0nanNd9yiCt9_hmwB9eU4Vgm_RctQnl4YZG-xSPgPxVjyRsaxCifRJN3I9MjGnGY_Ecs0ePAkGQZ2mDTIslear1HBMWUUNsXwT-oD1wL8SX3MZlGsqIKu-WYXtF8oA2p45rPH3GkTAGf3Tw_KsPJYHiwm1i_6M1/p.png?fv_content=true&size_mode=5'
+                                                   src='https://vpam.ru/images/avatar/214163f34e9e397457ecb60b9f0d35bf.png'
                                                    avatar/>
                                             <span style={{
                                                 "font-size": "1.5em",
