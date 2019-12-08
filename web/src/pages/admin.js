@@ -82,6 +82,7 @@ class Admin extends React.Component {
                     <Loader inverted />
                 </Dimmer>
                 <Menu attached='top'>
+                    <Label size='huge' style={{'margin-left': 'auto'}}>Администрирование прав</Label>
                     <Menu.Menu position='right'>
                         <Dropdown item text='Админ всея холдинга'>
                             <Dropdown.Menu>
