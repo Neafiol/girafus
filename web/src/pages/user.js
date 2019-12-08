@@ -46,6 +46,15 @@ class User extends React.Component {
                 main.setState({roles: roles});
             });
 
+        axios.get(ROOT_ROUTE + "user/",{
+            params:{
+                user_id:this.state.user_id
+            }
+        })
+            .then((resp) => {
+                main.setState({value: resp.data.roles});
+            });
+
     }
 
     save = (rules) => {
@@ -81,7 +90,6 @@ class User extends React.Component {
             return <Redirect to='/'/>
         }
         const {value} = this.state;
-        console.log(value);
 
         return (
             <div className={"user-page"}>
@@ -110,17 +118,18 @@ class User extends React.Component {
                         <Menu secondary fluid>
                             <Dropdown
                                 fluid
+                                disabled
                                 selection
                                 multiple={true}
                                 options={this.state.roles}
                                 value={value}
-                                placeholder='Добавить роль'
+                                placeholder='Роли пользователя'
                                 onChange={this.handleChange}
                                 onSearchChange={this.handleSearchChange}
                             />
-                            <Menu.Menu position='right'>
-                                <Button color={"green"} style={{"margin-left": "10px"}}>Применить</Button>
-                            </Menu.Menu>
+                            {/*<Menu.Menu position='right'>*/}
+                            {/*    <Button color={"green"} style={{"margin-left": "10px"}}>Применить</Button>*/}
+                            {/*</Menu.Menu>*/}
                         </Menu>
                     </Grid.Row>
                 </Grid>
