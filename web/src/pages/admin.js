@@ -56,7 +56,6 @@ class Admin extends React.Component {
                 render: () =>
                     <Tab.Pane>
                         <CompaniesList
-                            companies={Object.values(this.props.companies || {})}
                             getCompanyInfo={this.getCompanyInfo}
                             getUserRules={this.getUserRules}
                         />
