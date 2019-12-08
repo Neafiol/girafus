@@ -10,6 +10,7 @@ import rootSaga from "./sagas/root.saga";
 import './css/index.css';
 import './css/login.css';
 import './css/rules_tables.css';
+import './css/roles.css';
 import 'semantic-ui-css/semantic.min.css';
 
 import App from './App';

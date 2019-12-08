@@ -4,11 +4,13 @@ import {connect} from 'react-redux';
 import { Dropdown, Menu, Tab, Label, Dimmer, Loader } from 'semantic-ui-react';
 import CompaniesList from '../components/companies_list';
 import Requests from "../components/Requests";
+import RolesList from "../components/roles_list";
 
 const mapStateToProps = state => ({
     logged: state.login.logged,
     user: state.login.user || {},
     companies: state.context.companies,
+    roles: state.context.roles,
     showWait: state.context.showWait,
 });
 
@@ -19,12 +21,19 @@ class Admin extends React.Component {
 
     initIfRequired = () => {
         if (!this.props.companies) {
-            this.loadData();
+            this.loadCompanies();
+        }
+
+        if (!this.props.roles) {
+            this.loadRoles();
         }
     };
 
-    loadData = () =>
+    loadCompanies = () =>
         this.props.dispatch({type: 'GET_COMPANIES', userId: this.props.user.id});
+
+    loadRoles = () =>
+        this.props.dispatch({type: 'GET_ROLES'});
 
     getCompanyInfo = companyId =>
         this.props.dispatch({type: 'GET_COMPANY_INFO', companyId});
@@ -47,13 +56,17 @@ class Admin extends React.Component {
                 render: () =>
                     <Tab.Pane>
                         <CompaniesList
-                            companies={Object.values(this.props.companies || {})}
                             getCompanyInfo={this.getCompanyInfo}
                             getUserRules={this.getUserRules}
                         />
                     </Tab.Pane>
             },
-            { menuItem: 'Роли', render: () => <Tab.Pane>А тут - список ролей</Tab.Pane> },
+            {
+                menuItem: 'Роли',
+                render: () => <Tab.Pane>
+                    <RolesList roles={Object.values(this.props.roles || {})}/>
+                </Tab.Pane>
+            },
             { menuItem: (
                 <Menu.Item key='requests'>
                     Запросы

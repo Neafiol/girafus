@@ -1,6 +1,12 @@
 import React from 'react';
-import { Tab, Menu } from 'semantic-ui-react';
-import UsersList from "./users_list";
+import {connect} from 'react-redux';
+import {Tab, Menu } from 'semantic-ui-react';
+import CompanyTab from './company_tab';
+
+const mapStateToProps = state => ({
+    companies: Object.values(state.context.companies || {}),
+    roles: Object.values(state.context.roles || {}),
+});
 
 class CompaniesList extends React.Component {
     render() {
@@ -13,6 +19,7 @@ class CompaniesList extends React.Component {
                         render: () => <Tab.Pane>
                             <CompanyTab
                                 company={company}
+                                roles={this.props.roles}
                                 getCompanyInfo={this.props.getCompanyInfo}
                                 getUserRules={this.props.getUserRules}
                             />
@@ -24,45 +31,4 @@ class CompaniesList extends React.Component {
     }
 }
 
-class CompanyTab extends React.Component {
-    componentDidMount() {
-        this.initIfRequired();
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.company.id !== this.props.company.id) {
-            this.initIfRequired();
-        }
-    }
-
-    initIfRequired = () => {
-        if (!this.props.company.users || !this.props.company.rules_list) {
-            this.loadData();
-        }
-    };
-
-    loadData = () =>
-        this.props.getCompanyInfo(this.props.company.id);
-
-    render() {
-        return(
-            <Tab
-                menu={{ secondary: true, pointing: true }}
-                panes={[
-                    {
-                        menuItem: 'Пользователи',
-                        render: () => <Tab.Pane>
-                            <UsersList
-                                users={this.props.company.users || {}}
-                                getUserRules={userId => this.props.getUserRules(this.props.company.id, userId)}
-                            />
-                        </Tab.Pane>
-                    },
-                    { menuItem: 'Продукты', render: () => <Tab.Pane>Список продуктов</Tab.Pane>}
-                ]}
-            />
-        )
-    }
-}
-
-export default CompaniesList;
+export default connect(mapStateToProps, null)(CompaniesList);

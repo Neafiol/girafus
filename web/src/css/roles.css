@@ -1,0 +1,26 @@
+.ui.list.role-list {
+    max-width: 760px;
+}
+
+.ui.list.role-list>.item {
+    padding: 10px;
+}
+
+.ui.list.role-list>.item.active>.header {
+    color: #fe080d;
+    padding-left: 10px;
+}
+
+.ui.list.role-list>.item .header {
+    font-size: 16px;
+    line-height: 28px;
+}
+
+.ui.list.role-list .ui.labeled.icon.button>.icon {
+    background-color: inherit;
+}
+
+.ui.list.role-list .ui.labeled.icon.button:hover>.icon {
+    -webkit-box-shadow: 1px -1px 1px 0 rgba(34, 36, 38, .35) inset, 0 1px 1px 0 rgba(34, 36, 38, .35) inset, 1px -1px 1px 0 rgba(34, 36, 38, .15) inset;
+    box-shadow: 1px -1px 1px 0 rgba(34, 36, 38, .35) inset, 0 1px 1px 0 rgba(34, 36, 38, .35) inset, 1px -1px 1px 0 rgba(34, 36, 38, .15) inset;
+}
