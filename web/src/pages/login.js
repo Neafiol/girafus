@@ -53,7 +53,7 @@ class Login extends React.Component {
                 <Dimmer inverted active={this.props.showWait}>
                     <Loader inverted />
                 </Dimmer>
-                <img src={logoImg} className="login-logo"/>
+                <img src={logoImg} alt='' className="login-logo"/>
                 <Form>
                     <Form.Field>
                         {this.props.errorMessage && <span className='login-error'>{this.props.errorMessage}</span>}

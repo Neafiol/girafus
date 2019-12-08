@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from "axios";
 
-import {Button, Image, Grid, Accordion, Dropdown} from 'semantic-ui-react'
+import {Button, Image, Grid, Accordion} from 'semantic-ui-react'
 import RulesTableAdmin from "./RulesTableAdmin";
 import { ROOT_ROUTE, REQUESTS } from "../constants/routes";
 

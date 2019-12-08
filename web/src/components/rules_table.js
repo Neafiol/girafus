@@ -137,8 +137,6 @@ export default class RulesTable extends React.Component {
     };
 
     render() {
-        const {isLoading, value, results} = this.state;
-
         return (
             <div className={"rules-table"}>
                 <style>

@@ -49,7 +49,7 @@ export default class UserTable extends React.Component {
         var tables = {};
         for (var r in this.state.rows) {
             var row = this.state.rows[r];
-            if (row.id == id) {
+            if (row.id === id) {
                 row.permissions[column] = value;
                 this.rows_for_update[row.id] = row.permissions;
             }
@@ -78,22 +78,22 @@ export default class UserTable extends React.Component {
                             var name = "x";
                             var color = "grey";
                             var val = 1;
-                            if (perm == 2) {
+                            if (perm === 2) {
                                 name = 'chevron down';
                                 color = 'orange';
                                 val = 1;
                             }
-                            if (perm == 1) {
+                            if (perm === 1) {
                                 name = 'chevron down';
                                 color = 'green';
                                 val = 3;
                             }
-                            if (perm == 3) {
+                            if (perm === 3) {
                                 name = 'x';
                                 color = 'red';
                                 val = 1;
                             }
-                            if (perm == 0) {
+                            if (perm === 0) {
                                 name = 'chevron down';
                                 color = 'grey';
                                 val = 0;
@@ -115,7 +115,7 @@ export default class UserTable extends React.Component {
     getTables = (tables) => {
         let tabls = [];
         console.log(tables);
-        if (Object.keys(tables).length == 0) {
+        if (Object.keys(tables).length === 0) {
             return <h1>Not found</h1>
         }
         for (var t in tables) {
@@ -143,8 +143,6 @@ export default class UserTable extends React.Component {
     };
 
     render() {
-        const {isLoading, value, results} = this.state;
-
         return (
             <div className={"rules-table"}>
                 <style>

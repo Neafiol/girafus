@@ -1,4 +1,4 @@
-import {put, select, call, takeEvery} from 'redux-saga/effects';
+import {put, takeEvery} from 'redux-saga/effects';
 import {ROOT_ROUTE, COMPANY, RULES} from "../constants/routes";
 
 function* getCompanies(action) {

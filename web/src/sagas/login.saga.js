@@ -1,4 +1,4 @@
-import {put, select, call, takeEvery} from 'redux-saga/effects';
+import {put, select, takeEvery} from 'redux-saga/effects';
 import {ROOT_ROUTE, LOGIN} from "../constants/routes";
 
 function* doLogin() {
