@@ -4,3 +4,4 @@ export const LOGIN = 'user';
 export const COMPANY = 'company';
 export const RULES = 'rules';
 export const REQUESTS = 'requests';
+export const ROLES = 'role';

@@ -1,10 +1,12 @@
 const initialState = {
     showWait: false,
     companies: undefined,
+    roles: undefined,
 };
 
 export default function reducer(state = initialState, action) {
     let companies = {...state.companies};
+    let roles = {...state.roles};
     switch (action.type) {
         case 'CONTEXT_SHOW_WAIT':
             return {
@@ -36,6 +38,21 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 companies: companies,
+            };
+        case 'SET_ROLES':
+            roles = {};
+            action.roles.forEach(role => {
+                roles[role.id] = role;
+            });
+            return {
+                ...state,
+                roles: roles,
+            };
+        case 'SET_ROLE_RULES':
+            roles[action.roleId].rules = action.rules;
+            return {
+                ...state,
+                roles: roles,
             };
         case 'LOGOUT':
             return initialState;
