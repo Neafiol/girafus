@@ -1,0 +1,7 @@
+.ui.menu .item.main, .ui.menu .active.item.main {
+    font-weight: bold;
+}
+
+.ui.menu .item.affiliate {
+    padding-left: 30px;
+}

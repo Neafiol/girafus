@@ -13,9 +13,9 @@ class CompaniesList extends React.Component {
         return (
             <Tab
                 menu={{ fluid: true, vertical: true }}
-                panes={this.props.companies.map(company => {
+                panes={this.props.companies.map((company, idx) => {
                     return {
-                        menuItem: <Menu.Item key={company.id}>{company.name}</Menu.Item>,
+                        menuItem: <Menu.Item className={idx === 0 ? 'main' : 'affiliate'} key={company.id}>{company.name}</Menu.Item>,
                         render: () => <Tab.Pane>
                             <CompanyTab
                                 company={company}

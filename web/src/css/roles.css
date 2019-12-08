@@ -1,5 +1,6 @@
 .ui.list.role-list {
     max-width: 760px;
+    margin: auto;
 }
 
 .ui.list.role-list>.item {
