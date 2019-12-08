@@ -5,23 +5,27 @@ import {Button, Grid, Input, Segment, Table} from 'semantic-ui-react'
 export default class RulesTable extends React.Component {
     constructor(props) {
         super(props);
-        var rows =  props.rows||[];
-        var tables = {};
-        for (var r in rows) {
-            if (tables[rows[r].type] === undefined) {
-                tables[rows[r].type] = []
-            }
-            tables[rows[r].type].push(rows[r]);
-        }
-        this.state = {
-            rows: rows,
-            tables: tables,
-            btnName: props.btnName||"Сохранить изменения",
-        };
-        console.log("tables",tables);
-        console.log("var",rows);
+
+        this.rows =  props.rows || [];
+        this.tables = {};
+        this.btnName = props.btnName || 'Сохранить изменения';
         this.rows_for_update = {};
         this.save = props.save;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.rows =  this.props.rows || [];
+        this.tables = {};
+        this.btnName = this.props.btnName || 'Сохранить изменения';
+        this.rows_for_update = {};
+        this.save = this.props.save;
+
+        for (var r in this.rows) {
+            if (this.tables[this.rows[r].type] === undefined) {
+                this.tables[this.rows[r].type] = [];
+            }
+            this.tables[this.rows[r].type].push(this.rows[r]);
+        }
     }
 
 
@@ -29,7 +33,7 @@ export default class RulesTable extends React.Component {
         this.setState({isLoading: true, value});
         console.log(value);
         //filtr
-        var rows = this.state.rows;
+        var rows = this.rows;
 
         var tables = {};
         for (var r in rows) {
@@ -46,8 +50,8 @@ export default class RulesTable extends React.Component {
     update = (id, column, value) => {
         console.log(id, column, value)
         var tables = {};
-        for (var r in this.state.rows) {
-            var row = this.state.rows[r];
+        for (var r in this.rows) {
+            var row = this.rows[r];
             if (row.id === id) {
                 row.permissions[column] = value;
                 this.rows_for_update[row.id] = row.permissions;
@@ -55,7 +59,7 @@ export default class RulesTable extends React.Component {
             if (tables[row.type] === undefined) {
                 tables[row.type] = []
             }
-            tables[this.state.rows[r].type].push(this.state.rows[r]);
+            tables[this.rows[r].type].push(this.rows[r]);
         }
         this.setState({"tables": tables})
     };
@@ -154,13 +158,13 @@ export default class RulesTable extends React.Component {
                                     onClick={()=>this.save(this.rows_for_update)}
                                     fluid
                             >
-                                {this.state.btnName}
+                                {this.btnName}
                             </Button>
                         </Grid.Column>
                     </Grid>
                 </Segment>
                 {
-                    this.getTables(this.state.tables)
+                    this.getTables(this.tables)
                 }
             </div>
         )
