@@ -53,6 +53,15 @@ class RolesList extends React.Component {
         }
     };
 
+    handleCancel = () => {
+        this.setState({
+            showRules: false,
+            roleId: undefined,
+            roleName: undefined,
+            rules: [],
+        });
+    };
+
     handleRoleNameChange = e => {
         this.setState({
             roleName: e.target.value,
@@ -61,13 +70,7 @@ class RolesList extends React.Component {
 
     saveRoleChanges = () => {
         this.props.dispatch({type: 'UPDATE_ROLE', roleId: this.state.roleId, roleName: this.state.roleName});
-
-        this.setState({
-            showRules: false,
-            roleId: undefined,
-            roleName: undefined,
-            rules: [],
-        });
+        this.handleCancel();
     };
 
     render() {
@@ -86,14 +89,23 @@ class RolesList extends React.Component {
                                     /> :
                                     role.name
                                 }
-                                <Button basic
-                                        icon labelPosition='left'
-                                        floated='right'
-                                        onClick={() => this.editRole(role.id)}
-                                >
-                                    <Icon name='edit outline' />
-                                    Изменить
-                                </Button>
+                                {
+                                    this.state.showRules && this.state.roleId === role.id ?
+                                        <Button basic
+                                                floated='right'
+                                                onClick={this.handleCancel}
+                                        >
+                                            Отмена
+                                        </Button> :
+                                        <Button basic
+                                                icon labelPosition='left'
+                                                floated='right'
+                                                onClick={() => this.editRole(role.id)}
+                                        >
+                                            <Icon name='edit outline' />
+                                            Изменить
+                                        </Button>
+                                }
                             </List.Header>
                         </List.Item>
                     )}
