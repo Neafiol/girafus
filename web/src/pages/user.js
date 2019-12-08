@@ -81,6 +81,7 @@ class User extends React.Component {
             return <Redirect to='/'/>
         }
         const {value} = this.state;
+        console.log(value);
 
         return (
             <div className={"user-page"}>
