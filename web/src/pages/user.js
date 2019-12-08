@@ -17,8 +17,8 @@ class User extends React.Component {
         this.state = {
             user_id: 1,
             rules: [],
-            roles:[{ key: 1, text: "Бугалтер", value:1 },
-                { key: 2, text: "Директор", value: 2 }]
+            roles: [{key: 1, text: "Бугалтер", value: 1},
+                {key: 2, text: "Директор", value: 2}]
         };
     }
 
@@ -33,29 +33,54 @@ class User extends React.Component {
                 main.setState({rules: resp.data});
             });
 
+        axios.get(ROOT_ROUTE + "role/")
+            .then((resp) => {
+                var roles = [];
+                for (var r in resp.data) {
+                    roles.push({
+                        key: r,
+                        value: resp.data[r].id,
+                        text: resp.data[r].name,
+                    })
+                }
+                main.setState({roles: roles});
+            });
+
     }
 
     save = (rules) => {
         axios.patch(ROOT_ROUTE + "user/", {
-            user_id:this.state.user_id,
-            rules:rules
+            user_id: this.state.user_id,
+            rules: rules
         })
             .then((resp) => {
                 console.log("Sucsess");
             });
     };
 
+    saveNewRoles = () => {
+        for (var i in this.state.value) {
+            axios.patch(ROOT_ROUTE + "user/", {
+                user_id: this.state.user_id,
+                role: this.state.value[i]
+            })
+                .then((resp) => {
+                    console.log("Sucsess");
+                });
+        }
+    };
+
     handleLogout = () => {
         this.props.dispatch({type: 'LOGOUT'});
     };
 
-    handleChange = (e, { value }) => this.setState({ value });
+    handleChange = (e, {value}) => this.setState({value});
 
     render() {
         if (!this.props.logged) {
             return <Redirect to='/'/>
         }
-        const {value } = this.state;
+        const {value} = this.state;
 
         return (
             <div className={"user-page"}>
@@ -71,11 +96,13 @@ class User extends React.Component {
                 <Grid columns='equal' inverted padded>
                     <Grid.Row textAlign='center' verticalAlign={"middle"}>
                         <Grid.Column>
-                            <Image size={"tiny"} src='https://uc559035b5e9d656f886f0e22052.previews.dropboxusercontent.com/p/thumb/AAr3LCuDH93GW8K_DwJ07O2e96UwQa4wos-RVlzmoe0BQ4a3Y7vwcEZrlmGXUq2bm8d-ViegmV9vbvMQUB_-vSP_lZxCqG9uqo3hCx1Mtt1JLRfXXD7vTVRWDYgHEZ1S_EteiabNAwguWIFBV9u3LidsDD2RAwZot5wRe89EtxyMLms9RUXiiohZwDIAvEwg8pa0e8861ZfGj-rSlAXkoWZ3miu5dGA3RNxju5Pv2J1LIfnlnQHJHSkwU0nanNd9yiCt9_hmwB9eU4Vgm_RctQnl4YZG-xSPgPxVjyRsaxCifRJN3I9MjGnGY_Ecs0ePAkGQZ2mDTIslear1HBMWUUNsXwT-oD1wL8SX3MZlGsqIKu-WYXtF8oA2p45rPH3GkTAGf3Tw_KsPJYHiwm1i_6M1/p.png?fv_content=true&size_mode=5' avatar />
-                            <span style={{"font-size":"1.5em","margin-left":"30px"}}>Вольнов Петр</span>
+                            <Image size={"tiny"}
+                                   src='https://i.stack.imgur.com/Wbbwx.png?s=328&g=1'
+                                   avatar/>
+                            <span style={{"font-size": "1.5em", "margin-left": "30px"}}>Вольнов Петр</span>
                         </Grid.Column>
                         <Grid.Column>
-                            <span style={{"font-weight":"100"}}>Компания: Росстат</span>
+                            <span style={{"font-weight": "100"}}>Компания: Росстат</span>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -91,10 +118,10 @@ class User extends React.Component {
                                 onSearchChange={this.handleSearchChange}
                             />
                             <Menu.Menu position='right'>
-                                <Button color={"green"} style={{"margin-left":"10px"}}>Применить</Button>
+                                <Button color={"green"} style={{"margin-left": "10px"}}>Применить</Button>
                             </Menu.Menu>
                         </Menu>
-                        </Grid.Row>
+                    </Grid.Row>
                 </Grid>
 
                 {this.state.rules.length > 0 &&
