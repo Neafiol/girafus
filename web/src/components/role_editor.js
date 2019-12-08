@@ -53,18 +53,22 @@ class RoleEditor extends React.Component {
             }
         })
             .then((resp) => {
+                console.log(resp.data);
                 main.setState({value: resp.data.roles});
             });
 
     }
 
-    save = (roles) => {
+    newRole = () => {
+        var main = this;
+        console.log(this.state.new_role);
         axios.patch(ROOT_ROUTE + "user/", {
             user_id: this.state.user_id,
-            rules: roles
+            role: this.state.new_role
         })
             .then((resp) => {
                 console.log("Sucsess");
+                main.close();
             });
     };
 
@@ -73,7 +77,14 @@ class RoleEditor extends React.Component {
         this.props.dispatch({type: 'LOGOUT'});
     };
 
-    handleChange = (e, {value}) => this.setState({value});
+    handleChange = (e, {value}) => {
+        console.log(value);
+        this.setState({value});
+    };
+
+    handleSeleced = (e, {name,value}) => {
+        this.setState({[name]:value});
+    };
 
 
     show = () => this.setState({ open: true });
@@ -91,26 +102,20 @@ class RoleEditor extends React.Component {
                         <p>Добавить пользователю новую роль</p>
                         <Form>
                             <Form.Group widths='equal'>
-                                <Form.Input fluid label='First name' placeholder='First name' />
-                                <Form.Input fluid label='Last name' placeholder='Last name' />
-                                <Form.Select
-                                    fluid
-                                    label='Gender'
-                                    options={options}
-                                    placeholder='Gender'
-                                />
+                                <Input type="date" name={"date"} onChange={this.handleChange} label='Срок действия'/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Dropdown placeholder='State' onChange={this.handleSeleced} name={"new_role"} label='Роль пользователя' search selection options={this.state.roles} />
                             </Form.Group>
                         </Form>
 
-                        <Dropdown placeholder='State' search selection options={this.state.roles} />
-                        <Input type="date" placeholder='Search...' />
-                        <Dropdown floating placeholder='Продолжительность' search selection options={this.state.addoptions} />
                     </Modal.Content>
                     <Modal.Actions>
                         <Button onClick={this.close} negative>Отмена</Button>
                         <Button
                             positive
                             icon='add'
+                            onClick={this.newRole}
                             labelPosition='right'
                             content='Добавить'
                         />
@@ -123,9 +128,8 @@ class RoleEditor extends React.Component {
                     multiple={true}
                     options={this.state.roles}
                     value={value}
+                    disabled
                     placeholder='Роли пользователя'
-                    onChange={this.handleChange}
-                    onSearchChange={this.handleSearchChange}
                 />
                 <Menu.Menu position='right'>
                     <Button color={"green"} onClick={this.show} style={{"margin-left": "10px"}}>Добавить</Button>

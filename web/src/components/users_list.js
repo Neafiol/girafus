@@ -1,6 +1,7 @@
 import React from 'react';
 import {List} from 'semantic-ui-react';
 import RulesTable from './rules_table';
+import RoleEditor from "./role_editor";
 
 class UsersList extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class UsersList extends React.Component {
                             <List.Header onClick={() => this.handleSelectUser(user.id)}>
                                 {`${user.name} - ${user.position}`}
                             </List.Header>
-                            {this.showRules(user.id) && <RulesTable rows={user.rules}/>}
+                            {this.showRules(user.id) && <div className={"user-role-card"}><RoleEditor/><RulesTable rows={user.rules}/></div>}
                         </List.Item>
                 )}
             </List>
