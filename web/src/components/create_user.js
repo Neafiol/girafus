@@ -89,12 +89,29 @@ class CreateUser extends React.Component {
                                     value={this.state.createUserFields['middleName']}
                                     onChange={e => this.handleInputChange(e, 'middleName')}
                                 />
+                            </Form.Group>
+                            <Form.Group widths='equal'>
                                 <Form.Input
                                     fluid
                                     label='Должность'
                                     placeholder='Тварь дрожащая или право имеет?'
                                     value={this.state.createUserFields['position']}
                                     onChange={e => this.handleInputChange(e, 'position')}
+                                />
+                                <Form.Input
+                                    fluid
+                                    label='Логин'
+                                    placeholder='Логин'
+                                    value={this.state.createUserFields['login']}
+                                    onChange={e => this.handleInputChange(e, 'login')}
+                                />
+                                <Form.Input
+                                    fluid
+                                    type='password'
+                                    label='Пароль'
+                                    placeholder='Задайте пароль'
+                                    value={this.state.createUserFields['password']}
+                                    onChange={e => this.handleInputChange(e, 'password')}
                                 />
                             </Form.Group>
                             <Dropdown
