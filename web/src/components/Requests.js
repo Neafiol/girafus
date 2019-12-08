@@ -2,10 +2,8 @@ import React from 'react';
 import axios from "axios";
 
 import {Button, Image, Grid, Accordion, Dropdown} from 'semantic-ui-react'
-import "../css/RulesTable.css"
 import RulesTableAdmin from "./RulesTableAdmin";
-
-const HOST = "http://localhost:8082";
+import { ROOT_ROUTE, REQUESTS } from "../constants/routes";
 
 export default class UserTable extends React.Component {
 
@@ -20,7 +18,7 @@ export default class UserTable extends React.Component {
 
     componentDidMount() {
         var main = this;
-        axios.get(HOST + "/requests").then(
+        axios.get(ROOT_ROUTE + REQUESTS).then(
             (r) => {
                 console.log("req", r.data);
                 main.setState({"requests": r.data})
@@ -29,13 +27,13 @@ export default class UserTable extends React.Component {
     }
 
     save = (table, user_id) => {
-        axios.patch(HOST + "/user", {
+        axios.patch(ROOT_ROUTE + "/user", {
             "user_id": user_id,
             "rules": table
         }).then((r) => {
             this.state.requests.splice(this.state.activeIndex, 1);
             this.setState({activeIndex: -1})
-            axios.delete(HOST + "/requests")
+            axios.delete(ROOT_ROUTE + REQUESTS)
         })
     };
 

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Button, Dropdown, Grid, Image, Menu} from 'semantic-ui-react';
 import RulesTable from "../components/rules_table";
 import axios from "axios";
-import {HOST} from "../constants/routes";
+import {ROOT_ROUTE} from "../constants/routes";
 
 const mapStateToProps = state => ({
     logged: state.login.logged,
@@ -24,7 +24,7 @@ class User extends React.Component {
 
     componentDidMount() {
         var main = this;
-        axios.get(HOST + "rules/", {
+        axios.get(ROOT_ROUTE + "rules/", {
             params: {
                 "user_id": 1
             }
@@ -36,7 +36,7 @@ class User extends React.Component {
     }
 
     save = (rules) => {
-        axios.patch(HOST + "user/", {
+        axios.patch(ROOT_ROUTE + "user/", {
             user_id:this.state.user_id,
             rules:rules
         })
