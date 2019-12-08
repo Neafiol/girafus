@@ -6,14 +6,14 @@ export default class RulesTable extends React.Component {
     constructor(props) {
         super(props);
 
-        this.rows =  props.rows || [];
-        this.tables = {};
-        this.btnName = props.btnName || 'Сохранить изменения';
-        this.rows_for_update = {};
-        this.save = props.save;
+        this.setEnvironment();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        this.setEnvironment();
+    }
+
+    setEnvironment = () => {
         this.rows =  this.props.rows || [];
         this.tables = {};
         this.btnName = this.props.btnName || 'Сохранить изменения';
@@ -26,7 +26,7 @@ export default class RulesTable extends React.Component {
             }
             this.tables[this.rows[r].type].push(this.rows[r]);
         }
-    }
+    };
 
 
     handleSearchChange = (e, {value}) => {
