@@ -2,14 +2,14 @@
 Gerafus team's product on Rosbank Hackaton.
 
 
-Кейс: 
+Case: 
 -----
-Управление клиентскими ролями в сложноорганизованных холдингах.
+Managing client roles in complex holdings.
 
-Решенее:
+Solution:
 --------
-Мы создали систему администрирования прав пользователей клиента, в которой клиент может настраивать самотоятельно роли/уровни доступа/список разрешенных сервисов под каждого сотрудника на локальном уровне, не задейсвуя поддержку банка.
+We created a client user rights administration system where the client can set up roles/levels of access/list of allowed services for each employee locally, without involving the bank's support.
 
-Демо: http://gerafus.neafiol.site/
-Логин: victor/admin
-Пароль: admin
+Demo: http://gerafus.neafiol.site/
+Login: victor/admin
+Password: admin
